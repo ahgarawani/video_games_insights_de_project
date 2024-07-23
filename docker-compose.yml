@@ -10,7 +10,7 @@ x-airflow-common:
     AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
     AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
     AIRFLOW__API__AUTH_BACKENDS: 'airflow.api.auth.backend.basic_auth'
-    AIRFLOW_CONN_POSTGRES_DEFAULT: postgres://airflow:airflow@postgres:5432/airflow
+    AIRFLOW_CONN_POSTGRES_DEFAULT: postgres://airflow:airflow@postgres-airflow:5432/airflow
 
   volumes:
     - ./dags:/opt/airflow/dags
@@ -38,8 +38,8 @@ services:
     restart: always
     ports:
       - "5432:5432"
-    volumes:
-      - ./data/airflow_db_volume:/var/lib/postgresql/data
+    # volumes:
+    #   - ./data/airflow_db_volume:/var/lib/postgresql/data
 
   postgres-dwh:
     container_name: postgres-dwh
@@ -55,8 +55,8 @@ services:
     restart: always
     ports:
       - "5433:5432"
-    volumes:
-      - ./data/dwh_db_volume:/var/lib/postgresql/data
+    # volumes:
+    #   - ./data/dwh_db_volume:/var/lib/postgresql/data
 
   airflow-webserver:
     <<: *airflow-common
@@ -115,4 +115,16 @@ services:
       MINIO_ROOT_USER: minio
       MINIO_ROOT_PASSWORD: minio123
     command: server --console-address ":9001" /data
+
+  metabase:
+    image: metabase/metabase:latest
+    container_name: metabase
+    volumes:
+      - ./data/metabase.db:/metabase.db
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres-dwh
+        
+    
 

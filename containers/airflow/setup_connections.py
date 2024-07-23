@@ -1,6 +1,14 @@
+import json
 import subprocess
 
-def add_minio_connection():
+
+def add_minio_connection() -> None:
+    """
+    Add a MinIO connection to Airflow using the CLI.
+
+    This function sets up a connection to a MinIO instance by defining the
+    necessary connection details and executing the corresponding Airflow CLI command.
+    """
     # Define connection details
     conn_id = "aws_default"
     conn_type = "aws"
@@ -8,6 +16,7 @@ def add_minio_connection():
     secret_key = "minio123"
     region_name = "us-east-1"
     endpoint_url = "http://minio:9000"
+
     # Construct the extra JSON
     extra = {
         "aws_access_key_id": access_key,
@@ -15,8 +24,10 @@ def add_minio_connection():
         "region_name": region_name,
         "host": endpoint_url,
     }
+
     # Convert to JSON string
-    extra_json = str(extra).replace("'", '"')
+    extra_json = json.dumps(extra)
+
     # Define the CLI command
     command = [
         "airflow",
@@ -28,11 +39,19 @@ def add_minio_connection():
         "--conn-extra",
         extra_json,
     ]
+
     # Execute the command
     subprocess.run(command)
 
 
-def add_dwh_postgres_connection():
+def add_dwh_postgres_connection() -> None:
+    """
+    Add a PostgreSQL data warehouse connection to Airflow using the CLI.
+
+    This function sets up a connection to a PostgreSQL data warehouse by defining
+    the necessary connection details and executing the corresponding Airflow CLI command.
+    """
+    # Define connection details
     connection_id = "dwh-conn"
     connection_type = "postgres"
     host = "postgres-dwh"
@@ -40,6 +59,8 @@ def add_dwh_postgres_connection():
     login = "dwh"
     password = "dwh"
     schema = "video_games_dwh"
+
+    # Define the CLI command
     cmd = [
         "airflow",
         "connections",
@@ -58,9 +79,11 @@ def add_dwh_postgres_connection():
         "--conn-schema",
         schema,
     ]
-    
-    subprocess.run(cmd, capture_output=True, text=True)
-    
 
+    # Execute the command
+    subprocess.run(cmd, capture_output=True, text=True)
+
+
+# Add the connections
 add_minio_connection()
 add_dwh_postgres_connection()
