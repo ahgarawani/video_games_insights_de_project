@@ -37,7 +37,7 @@ def create_dim_table_query_constructor(dim_name: str) -> str:
         """
 
 
-def escape_value(value: str) -> str:
+def escape_value(value: any) -> str:
     """
     Escape values for SQL insertion, handling NULLs and special characters.
 
