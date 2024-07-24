@@ -8,7 +8,7 @@ This is an end-to-end ETL pipeline to pull video game sales data from this [Kagg
 
 You can run this data pipeline using GitHub codespaces. Follow the instructions below.
 
-1. Create codespaces by `Code` button on the top right, navigating to `Codespces` and then clicking on `Create codespaces on master` button.
+1. Create codespaces by `Code` button on the top right, navigating to `Codespces` and then clicking on `Create codespaces on main` button.
 2. Wait for codespaces to start, then in the terminal type `make up` and wait for it to complete.
 3. After `make up` has completed, go to the `ports` tab, you will find links exposing some ports, what we are interested in are the links exposing ports:
    - `3000`: the `Metabase` UI.
