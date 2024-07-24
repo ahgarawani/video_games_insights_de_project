@@ -55,7 +55,7 @@ So, what's going on? Let's start with an overview of the architecture which is c
    - Act as our data warehouse.
 3. **`Pandas`**: Used for data transformation and remodelling.
 4. **`Metabase`**: Used as our BI software.
-   - **Note** You can use any other BI software you want if you run on codespaces by using the link that exposes port `5432` as the host, you could also use desktop applications like `PowerBI` if you run locally by using `localhost` as the host. In both cases username and password should be `dwh`, port `5432` and database name `video_games_dwh`.
+   - **Note** You can use a desktop BI software like `PowerBI` or `Tableau` if you run locally by using `localhost` as the host. In both cases username and password should be `dwh`, port `5432` and database name `video_games_dwh`.
 5. **`MinIO`**: Used to provide an S3 compatible open source storage system.
 
 All of the components are running as docker containers.
